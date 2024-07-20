@@ -1,0 +1,30 @@
+version: '3.1'
+services:
+  mongo:
+    image: mongo
+    container_name: mongo_container
+    ports:
+      - 27018:27017
+    volumes:
+      - './mongodb:/data/db'
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: 2904
+  app:
+    depends_on:
+      - mongo
+      - redis
+    image: mongodbdemo
+    restart: always
+    ports:
+      - 9091:8080
+  redis:
+    image: redis
+    container_name: redis_container
+    ports:
+      - 6379:6379
+volumes:
+  app:
+  mongo:
+
