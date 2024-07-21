@@ -1,12 +1,12 @@
 package ducbao.vn.mongdbdemo.entity;
 
-import ducbao.vn.mongdbdemo.validatior.Dobcontrains;
-import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import java.time.LocalDate;
+import java.util.List;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import lombok.*;
 
 @Data
 @Getter
@@ -17,17 +17,14 @@ import java.util.List;
 public class Student {
     @Id
     private String id;
-    @NotNull
-    private String name;
-    @Dobcontrains(min = 18)
-    @NotNull
-    private int age;
 
+    private String name;
+    private LocalDate age;
     private String gender;
 
     private String address;
 
-    private  String email;
+    private String email;
 
     Department department;
 

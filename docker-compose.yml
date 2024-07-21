@@ -11,6 +11,8 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: 2904
+    networks:
+      - my_network
   app:
     depends_on:
       - mongo
@@ -19,12 +21,20 @@ services:
     restart: always
     ports:
       - 9091:8080
+    networks:
+      - my_network
+    container_name: mongodb_demo
+    volumes:
+      - ./src:/app/src
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://root:2904@mongo_container:27017/mongoTest?authSource=admin
   redis:
     image: redis
     container_name: redis_container
     ports:
       - 6379:6379
-volumes:
-  app:
-  mongo:
-
+    networks:
+      - my_network
+networks:
+  my_network:
+    driver: bridge
